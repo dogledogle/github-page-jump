@@ -1,0 +1,183 @@
+/* !important 保卫注入控件的布局属性，防止被宿主页面样式（如 .pagination div）覆盖 */
+.ghpj-controls {
+  display: inline-flex !important;
+  flex: 0 0 auto !important;
+  align-items: center;
+  gap: 4px;
+  vertical-align: middle;
+}
+
+.ghpj-controls--start {
+  margin-inline-end: 8px;
+}
+
+.ghpj-controls--end {
+  margin-inline-start: 8px;
+}
+
+.ghpj-jumpbox {
+  box-sizing: border-box;
+  height: 32px;
+  border: 1px solid var(--borderColor-default, var(--color-border-default, #d0d7de));
+  border-radius: 6px;
+  color: var(--fgColor-default, var(--color-fg-default, #1f2328));
+  background: var(--bgColor-default, var(--color-canvas-default, #ffffff));
+  font: inherit;
+}
+
+.ghpj-jumpbox {
+  display: inline-flex !important;
+  align-items: stretch;
+}
+
+.ghpj-button {
+  box-sizing: border-box;
+  display: inline-flex !important;
+  height: 32px;
+  width: 32px;
+  flex: 0 0 32px !important;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  color: var(--fgColor-accent, var(--color-accent-fg, #0969da));
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+}
+
+.ghpj-button svg {
+  width: 14px;
+  height: 14px;
+  margin-top: 2px;
+  fill: currentColor;
+}
+
+.ghpj-button:hover:not(:disabled) {
+  background: var(--bgColor-neutral-muted, var(--color-neutral-muted, rgba(175, 184, 193, 0.2)));
+}
+
+.ghpj-button:active:not(:disabled) {
+  background: var(--bgColor-neutral-emphasis, var(--color-neutral-emphasis, #afb8c1));
+}
+
+.ghpj-button:disabled {
+  color: var(--fgColor-disabled, var(--color-primer-fg-disabled, #8c959f));
+  background: transparent;
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.ghpj-input {
+  box-sizing: border-box;
+  width: 58px;
+  min-width: 0;
+  padding: 0 7px;
+  border: none;
+  color: inherit;
+  background: transparent;
+  font: inherit;
+  text-align: center;
+  font-size: 14px;
+  outline: none;
+  appearance: textfield;
+}
+
+.ghpj-jumpbox-button {
+  display: inline-flex !important;
+  width: 30px;
+  flex: 0 0 30px !important;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  border-left: 1px solid var(--borderColor-default, var(--color-border-default, #d0d7de));
+  border-radius: 0 5px 5px 0;
+  color: inherit;
+  background: var(--bgColor-muted, var(--color-canvas-subtle, #f6f8fa));
+  cursor: pointer;
+  font: inherit;
+}
+
+.ghpj-jumpbox-button svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+.ghpj-jumpbox-button:hover {
+  background: var(--bgColor-neutral-muted, var(--color-neutral-muted, rgba(175, 184, 193, 0.2)));
+}
+
+.ghpj-jumpbox-button:active {
+  background: var(--bgColor-neutral-emphasis, var(--color-neutral-emphasis, #afb8c1));
+}
+
+.ghpj-input::placeholder {
+  color: var(--fgColor-muted, var(--color-fg-muted, #656d76));
+  opacity: 1;
+}
+
+.ghpj-jumpbox:hover {
+  border-color: var(--borderColor-muted, var(--color-border-muted, #afb8c1));
+}
+
+.ghpj-button:focus-visible {
+  outline: 2px solid var(--borderColor-accent-emphasis, var(--color-accent-emphasis, #0969da));
+  outline-offset: 1px;
+}
+
+.ghpj-jumpbox:focus-within {
+  border-color: var(--borderColor-accent-emphasis, var(--color-accent-emphasis, #0969da));
+  outline: 2px solid var(--borderColor-accent-emphasis, var(--color-accent-emphasis, #0969da));
+  outline-offset: 1px;
+}
+
+.ghpj-jumpbox:has(.ghpj-input[aria-invalid="true"]) {
+  border-color: var(--borderColor-danger-emphasis, var(--color-danger-emphasis, #cf222e));
+  outline-color: var(--borderColor-danger-emphasis, var(--color-danger-emphasis, #cf222e));
+}
+
+@media (prefers-color-scheme: dark) {
+  .ghpj-jumpbox {
+    border-color: var(--borderColor-default, var(--color-border-default, #30363d));
+    color: var(--fgColor-default, var(--color-fg-default, #f0f6fc));
+    background: var(--bgColor-default, var(--color-canvas-default, #0d1117));
+  }
+
+  .ghpj-button {
+    color: var(--fgColor-accent, var(--color-accent-fg, #4493f8));
+  }
+
+  .ghpj-jumpbox-button {
+    border-color: var(--borderColor-default, var(--color-border-default, #30363d));
+    background: var(--bgColor-muted, var(--color-canvas-subtle, #161b22));
+  }
+}
+
+@media (max-width: 544px) {
+  .ghpj-controls {
+    gap: 2px;
+  }
+
+  .ghpj-controls--start {
+    margin-inline-end: 4px;
+  }
+
+  .ghpj-controls--end {
+    margin-inline-start: 4px;
+  }
+
+  .ghpj-input {
+    width: 52px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ghpj-button,
+  .ghpj-jumpbox,
+  .ghpj-jumpbox-button {
+    transition: background-color 80ms ease-out, border-color 80ms ease-out;
+  }
+}

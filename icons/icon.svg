@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <linearGradient id="ghpj-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#31383f"/>
+      <stop offset="1" stop-color="#1c2126"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="28" fill="url(#ghpj-bg)"/>
+  <path d="M32 31 L64 64 L32 97" fill="none" stroke="#f0f6fc" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M95 31 L95 97" fill="none" stroke="#4493f8" stroke-width="14" stroke-linecap="round"/>
+</svg>

@@ -18,10 +18,7 @@
 .ghpj-jumpbox {
   box-sizing: border-box;
   height: 32px;
-  border: 1px solid var(--borderColor-default, var(--color-border-default, #d0d7de));
-  border-radius: 6px;
   color: var(--fgColor-default, var(--color-fg-default, #1f2328));
-  background: var(--bgColor-default, var(--color-canvas-default, #ffffff));
   font: inherit;
 }
 
@@ -69,14 +66,30 @@
   opacity: 0.65;
 }
 
+/* 旧版 .pagination（PR 列表等）场景：与原生按钮一致，hover 只显示描边、不做背景填充 */
+.ghpj-controls--outline .ghpj-button {
+  border: 1px solid transparent;
+}
+
+.ghpj-controls--outline .ghpj-button:hover:not(:disabled) {
+  border-color: var(--borderColor-default, var(--color-border-default, #d0d7de));
+  background: transparent;
+}
+
+.ghpj-controls--outline .ghpj-button:active:not(:disabled) {
+  border-color: var(--borderColor-muted, var(--color-border-muted, #afb8c1));
+  background: transparent;
+}
+
 .ghpj-input {
   box-sizing: border-box;
   width: 58px;
   min-width: 0;
   padding: 0 7px;
-  border: none;
+  border: 1px solid var(--borderColor-default, var(--color-border-default, #d0d7de));
+  border-radius: 6px 0 0 6px;
   color: inherit;
-  background: transparent;
+  background: var(--bgColor-default, var(--color-canvas-default, #ffffff));
   font: inherit;
   text-align: center;
   font-size: 14px;
@@ -91,9 +104,9 @@
   align-items: center;
   justify-content: center;
   padding: 0;
-  border: none;
-  border-left: 1px solid var(--borderColor-default, var(--color-border-default, #d0d7de));
-  border-radius: 0 5px 5px 0;
+  border: 1px solid var(--borderColor-default, var(--color-border-default, #d0d7de));
+  border-left: none;
+  border-radius: 0 6px 6px 0;
   color: inherit;
   background: var(--bgColor-muted, var(--color-canvas-subtle, #f6f8fa));
   cursor: pointer;
@@ -119,7 +132,7 @@
   opacity: 1;
 }
 
-.ghpj-jumpbox:hover {
+.ghpj-jumpbox:hover .ghpj-input:not(:focus) {
   border-color: var(--borderColor-muted, var(--color-border-muted, #afb8c1));
 }
 
@@ -128,19 +141,31 @@
   outline-offset: 1px;
 }
 
-.ghpj-jumpbox:focus-within {
-  border-color: var(--borderColor-accent-emphasis, var(--color-accent-emphasis, #0969da));
-  outline: 2px solid var(--borderColor-accent-emphasis, var(--color-accent-emphasis, #0969da));
-  outline-offset: 1px;
+/* 与 GitHub 表单控件一致：仅输入框部分高亮，右侧按钮边框保持默认 */
+.ghpj-input:focus {
+  border-color: var(
+    --focus-outlineColor,
+    var(--borderColor-accent-emphasis, var(--color-accent-emphasis, #0969da))
+  );
+  box-shadow: inset 0 0 0 1px
+    var(
+      --focus-outlineColor,
+      var(--borderColor-accent-emphasis, var(--color-accent-emphasis, #0969da))
+    );
 }
 
-.ghpj-jumpbox:has(.ghpj-input[aria-invalid="true"]) {
+.ghpj-input:focus:not(:focus-visible) {
+  box-shadow: inset 0 0 0 1px transparent;
+}
+
+.ghpj-jumpbox:has(.ghpj-input[aria-invalid="true"]) .ghpj-input {
   border-color: var(--borderColor-danger-emphasis, var(--color-danger-emphasis, #cf222e));
-  outline-color: var(--borderColor-danger-emphasis, var(--color-danger-emphasis, #cf222e));
+  box-shadow: inset 0 0 0 1px
+    var(--borderColor-danger-emphasis, var(--color-danger-emphasis, #cf222e));
 }
 
 @media (prefers-color-scheme: dark) {
-  .ghpj-jumpbox {
+  .ghpj-input {
     border-color: var(--borderColor-default, var(--color-border-default, #30363d));
     color: var(--fgColor-default, var(--color-fg-default, #f0f6fc));
     background: var(--bgColor-default, var(--color-canvas-default, #0d1117));
@@ -176,8 +201,9 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .ghpj-button,
-  .ghpj-jumpbox,
+  .ghpj-input,
   .ghpj-jumpbox-button {
-    transition: background-color 80ms ease-out, border-color 80ms ease-out;
+    transition: background-color 80ms ease-out, border-color 80ms ease-out,
+      box-shadow 80ms ease-out;
   }
 }

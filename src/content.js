@@ -12,6 +12,10 @@
     ".paginate-container"
   ].join(",");
   const CONTROL_CLASS = "ghpj-controls";
+  const OUTLINE_CLASS = "ghpj-controls--outline";
+  // 旧版 .pagination（PR 列表等 Rails 页面）的原生按钮 hover 只显示描边，React 版（issue 列表）则是背景填充
+  const LEGACY_PAGINATION_SELECTOR =
+    ".paginate-container, .pagination, .previous_page, .next_page";
   const locale = document.documentElement.lang.toLowerCase().startsWith("zh")
     ? {
         first: "跳转到第一页",
@@ -67,6 +71,13 @@
       pagination.querySelector("[data-hidden-viewport-ranges]") ||
       pagination.querySelector(":scope > .pagination") ||
       pagination
+    );
+  }
+
+  function usesLegacyHoverStyle(pagination) {
+    return Boolean(
+      pagination.matches(LEGACY_PAGINATION_SELECTOR) ||
+        pagination.querySelector(LEGACY_PAGINATION_SELECTOR)
     );
   }
 
@@ -205,6 +216,10 @@
       endControls = createEndControls(pagination);
       host.append(endControls);
     }
+
+    const outlineHover = usesLegacyHoverStyle(pagination);
+    startControls.classList.toggle(OUTLINE_CLASS, outlineHover);
+    endControls.classList.toggle(OUTLINE_CLASS, outlineHover);
 
     updateControls(pagination, startControls, endControls);
   }

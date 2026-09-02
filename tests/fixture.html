@@ -24,6 +24,7 @@
         display: grid;
         min-height: 100vh;
         margin: 0;
+        gap: 32px;
         place-items: center;
         color: #1f2328;
         background: #ffffff;
@@ -64,6 +65,44 @@
           display: none;
         }
       }
+
+      /* 旧版 Rails 分页（PR 列表），样式复刻自 GitHub 的 .pagination 规则 */
+      .pagination a,
+      .pagination span {
+        box-sizing: border-box;
+        display: inline-block;
+        min-width: 32px;
+        padding: 5px 10px;
+        border: 1px solid transparent;
+        border-radius: 6px;
+        color: #1f2328;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 20px;
+        text-align: center;
+        cursor: pointer;
+      }
+
+      .pagination a:hover {
+        border-color: #d0d7de;
+      }
+
+      .pagination .previous_page,
+      .pagination .next_page {
+        color: #0969da;
+      }
+
+      .pagination .current,
+      .pagination .current:hover {
+        border-color: transparent;
+        color: #ffffff;
+        background: #0969da;
+      }
+
+      .pagination .disabled {
+        color: #8c959f;
+        cursor: default;
+      }
     </style>
   </head>
   <body>
@@ -83,6 +122,18 @@
         <a data-component="Pagination.NextPage" rel="next" href="#7">Next</a>
       </div>
     </nav>
+    <div class="paginate-container">
+      <div role="navigation" aria-label="Pagination" class="pagination">
+        <span class="previous_page disabled" role="link" aria-label="Previous page" aria-disabled="true">Previous</span>
+        <a class="current" aria-label="Page 1" aria-current="page" data-total-pages="20" href="#1">1</a>
+        <a aria-label="Page 2" href="#2">2</a>
+        <a aria-label="Page 3" href="#3">3</a>
+        <a aria-label="Page 4" href="#4">4</a>
+        <span class="gap">&hellip;</span>
+        <a aria-label="Page 20" href="#20">20</a>
+        <a class="next_page" aria-label="Next page" rel="next" href="#2">Next</a>
+      </div>
+    </div>
     <script src="../src/core.js"></script>
     <script src="../src/content.js"></script>
   </body>

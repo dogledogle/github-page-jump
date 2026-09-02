@@ -13,7 +13,7 @@ A zero-build Chrome Manifest V3 extension that adds to GitHub's numeric paginati
 1. Open `chrome://extensions/` in Chrome.
 2. Enable "Developer mode" in the top-right corner.
 3. Click "Load unpacked".
-4. Select this project directory `GitHubPageJump`.
+4. Select the cloned folder (the one containing `manifest.json`).
 5. Open or refresh any GitHub page with numeric pagination.
 
 🔒 The extension only runs on `https://github.com/*`, requests no extra permissions, and never collects or sends data.
@@ -39,7 +39,7 @@ A zero-build Chrome Manifest V3 extension that adds to GitHub's numeric paginati
 1. 打开 Chrome 的 `chrome://extensions/`。
 2. 打开右上角的“开发者模式”。
 3. 点击“加载已解压的扩展程序”。
-4. 选择本项目目录 `GitHubPageJump`。
+4. 选择克隆下来的项目文件夹（即包含 `manifest.json` 的目录）。
 5. 打开或刷新任意带数字分页器的 GitHub 页面。
 
 🔒 扩展只在 `https://github.com/*` 中运行，不申请额外权限，也不会收集或发送数据。

@@ -1,5 +1,31 @@
 # ⏭️ GitHub Page Jump
 
+A zero-build Chrome Manifest V3 extension that adds to GitHub's numeric pagination:
+
+- ⏮️ Jump-to-first-page button
+- 🔢 Type a page number and press Enter to jump
+- ⏭️ Jump-to-last-page button
+
+🎨 Controls use GitHub's Primer color variables, automatically adapting to GitHub's light, dark, and high-contrast themes, and support GitHub's partial page navigation.
+
+## 📦 Install
+
+1. Open `chrome://extensions/` in Chrome.
+2. Enable "Developer mode" in the top-right corner.
+3. Click "Load unpacked".
+4. Select this project directory `GitHubPageJump`.
+5. Open or refresh any GitHub page with numeric pagination.
+
+🔒 The extension only runs on `https://github.com/*`, requests no extra permissions, and never collects or sends data.
+
+## 📄 License
+
+[MIT](LICENSE)
+
+---
+
+## 🇨🇳 中文
+
 一个无需构建步骤的 Chrome Manifest V3 扩展，为 GitHub 数字分页器增加：
 
 - ⏮️ 跳转到第一页按钮

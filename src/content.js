@@ -16,7 +16,19 @@
   // 旧版 .pagination（PR 列表等 Rails 页面）的原生按钮 hover 只显示描边，React 版（issue 列表）则是背景填充
   const LEGACY_PAGINATION_SELECTOR =
     ".paginate-container, .pagination, .previous_page, .next_page";
-  const locale = document.documentElement.lang.toLowerCase().startsWith("zh")
+  const STORAGE_KEY = "fixedPagination";
+  const FIXED_CLASS = "ghpj-pagination--fixed";
+  const storageApi =
+    typeof chrome !== "undefined" && chrome.storage && chrome.storage.sync
+      ? chrome.storage.sync
+      : null;
+  let fixedEnabled = false;
+  // 与弹窗一致，统一按浏览器界面语言选择文案（GitHub 自身的页面语言信号不可靠）
+  const uiLanguage =
+    typeof chrome !== "undefined" && chrome.i18n && chrome.i18n.getUILanguage
+      ? chrome.i18n.getUILanguage()
+      : navigator.language || "";
+  const locale = core.isChineseLanguage(uiLanguage)
     ? {
         first: "跳转到第一页",
         last: "跳转到最后一页",
@@ -221,7 +233,29 @@
     startControls.classList.toggle(OUTLINE_CLASS, outlineHover);
     endControls.classList.toggle(OUTLINE_CLASS, outlineHover);
 
+    pagination.classList.toggle(FIXED_CLASS, fixedEnabled);
     updateControls(pagination, startControls, endControls);
+  }
+
+  function applyFixedMode(enabled) {
+    fixedEnabled = enabled;
+    document.querySelectorAll(PAGINATION_SELECTOR).forEach((pagination) => {
+      pagination.classList.toggle(FIXED_CLASS, enabled);
+    });
+  }
+
+  if (storageApi) {
+    storageApi.get({ [STORAGE_KEY]: false }, (result) => {
+      if (!chrome.runtime.lastError) {
+        applyFixedMode(Boolean(result[STORAGE_KEY]));
+      }
+    });
+
+    chrome.storage.onChanged.addListener((changes, areaName) => {
+      if (areaName === "sync" && changes[STORAGE_KEY]) {
+        applyFixedMode(Boolean(changes[STORAGE_KEY].newValue));
+      }
+    });
   }
 
   let scanScheduled = false;

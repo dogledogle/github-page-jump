@@ -24,6 +24,10 @@
     return Number.isSafeInteger(number) && number > 0 ? number : null;
   }
 
+  function isChineseLanguage(language) {
+    return typeof language === "string" && language.toLowerCase().startsWith("zh");
+  }
+
   function readPageNumber(item) {
     const textPage = parsePositiveInteger(item.text || "");
     if (textPage) {
@@ -115,6 +119,7 @@
     buildPageUrl,
     getPaginationState,
     inferPageParam,
+    isChineseLanguage,
     parsePositiveInteger,
     readPageNumber
   };

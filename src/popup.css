@@ -1,0 +1,113 @@
+/* 扩展页面拿不到 GitHub 的 Primer 变量，这里用同色值的字面量并跟随系统深浅色 */
+
+:root {
+  color-scheme: light dark;
+}
+
+body {
+  box-sizing: border-box;
+  width: 288px;
+  margin: 0;
+  padding: 12px 14px 14px;
+  color: #1f2328;
+  background: #ffffff;
+  font: 13px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+    Helvetica, Arial, sans-serif;
+}
+
+.ghpj-popup-header {
+  display: flex;
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #d0d7de;
+}
+
+.ghpj-popup-title {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.ghpj-popup-body {
+  padding-top: 12px;
+}
+
+.ghpj-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ghpj-option-label {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.ghpj-switch {
+  position: relative;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  width: 36px;
+  height: 18px;
+  padding: 0;
+  border: none;
+  border-radius: 9px;
+  background: #afb8c1;
+  cursor: pointer;
+  transition: background-color 80ms ease-out;
+}
+
+.ghpj-switch-knob {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(31, 35, 40, 0.24);
+  transition: transform 80ms ease-out;
+}
+
+.ghpj-switch[aria-checked="true"] {
+  background: #1a7f37;
+}
+
+.ghpj-switch[aria-checked="true"] .ghpj-switch-knob {
+  transform: translateX(18px);
+}
+
+.ghpj-switch:focus-visible {
+  outline: 2px solid #0969da;
+  outline-offset: 1px;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    color: #f0f6fc;
+    background: #0d1117;
+  }
+
+  .ghpj-popup-header {
+    border-bottom-color: #30363d;
+  }
+
+  .ghpj-switch {
+    background: #6e7681;
+  }
+
+  .ghpj-switch[aria-checked="true"] {
+    background: #238636;
+  }
+
+  .ghpj-switch:focus-visible {
+    outline-color: #4493f8;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ghpj-switch,
+  .ghpj-switch-knob {
+    transition: none;
+  }
+}

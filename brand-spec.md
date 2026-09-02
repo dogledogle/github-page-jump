@@ -8,3 +8,4 @@
 - Radius: 6px, matching compact GitHub controls.
 - Motion: 80ms color transitions, disabled when reduced motion is requested.
 - Brand assets: no logo or product imagery is introduced; the extension is an inline enhancement to the existing GitHub UI.
+- Popup: a minimal toolbar panel with one option ("Fixed pagination") as a Primer-like toggle switch; extension-owned colors mirror the host tokens and adapt to light/dark system theme.

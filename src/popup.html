@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GitHub Page Jump</title>
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+    <header class="ghpj-popup-header">
+      <span class="ghpj-popup-title">GitHub Page Jump</span>
+    </header>
+
+    <main class="ghpj-popup-body">
+      <div class="ghpj-option">
+        <span class="ghpj-option-label" id="ghpj-fixed-label">Fixed pagination</span>
+        <button
+          class="ghpj-switch"
+          id="ghpj-fixed-toggle"
+          type="button"
+          role="switch"
+          aria-checked="false"
+          aria-labelledby="ghpj-fixed-label"
+        >
+          <span class="ghpj-switch-knob"></span>
+        </button>
+      </div>
+    </main>
+
+    <script src="core.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>

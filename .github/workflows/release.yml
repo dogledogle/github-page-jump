@@ -1,0 +1,100 @@
+name: Release extension
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - package.json
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect version change
+        id: version
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          current_version=$(node -p "require('./package.json').version")
+          previous_version=""
+
+          if [[ ! "$current_version" =~ ^[0-9]+\.[0-9]+\.[0-9]+(\.[0-9]+)?$ ]]; then
+            echo "Unsupported extension version: $current_version" >&2
+            exit 1
+          fi
+
+          if [[ ! "$BEFORE_SHA" =~ ^0+$ ]] && git cat-file -e "$BEFORE_SHA:package.json" 2>/dev/null; then
+            previous_version=$(git show "$BEFORE_SHA:package.json" | node -e '
+              let input = "";
+              process.stdin.on("data", (chunk) => (input += chunk));
+              process.stdin.on("end", () => process.stdout.write(JSON.parse(input).version || ""));
+            ')
+          fi
+
+          if [[ "$current_version" == "$previous_version" ]]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          tag="v$current_version"
+          if git rev-parse --quiet --verify "refs/tags/$tag" >/dev/null; then
+            echo "Tag $tag already exists; refusing to replace an existing release." >&2
+            exit 1
+          fi
+
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+          echo "version=$current_version" >> "$GITHUB_OUTPUT"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+
+      - name: Set up Node.js
+        if: steps.version.outputs.changed == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Test release source
+        if: steps.version.outputs.changed == 'true'
+        run: npm test
+
+      - name: Package extension
+        if: steps.version.outputs.changed == 'true'
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          zip -r "dist/github-page-jump-$VERSION.zip" manifest.json LICENSE README.md src icons
+
+      - name: Create GitHub release
+        if: steps.version.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.version.outputs.tag }}
+          VERSION: ${{ steps.version.outputs.version }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh release create "$TAG" \
+            "dist/github-page-jump-$VERSION.zip#GitHub Page Jump $VERSION" \
+            --generate-notes \
+            --repo "$GITHUB_REPOSITORY" \
+            --target "$GITHUB_SHA" \
+            --title "GitHub Page Jump $TAG"

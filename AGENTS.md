@@ -11,6 +11,7 @@
 ## Development
 
 - Run `npm test` after changing JavaScript or `manifest.json`.
+- Keep `package.json` and `manifest.json` versions identical; changing the package version on `main` triggers the release workflow.
 - Update both `manifest.json` and `tests/fixture.html` when adding a browser source module.
 - Add new preferences to `SETTING_DEFINITIONS` instead of using storage keys directly.
 - Add new GitHub pagination structures to `PAGINATION_ADAPTERS`.

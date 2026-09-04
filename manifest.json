@@ -18,7 +18,7 @@
     {
       "matches": ["https://github.com/*"],
       "css": ["src/content.css"],
-      "js": ["src/core.js", "src/content.js"],
+      "js": ["src/core.js", "src/shared.js", "src/pagination.js", "src/content.js"],
       "run_at": "document_idle"
     }
   ]

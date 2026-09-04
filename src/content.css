@@ -1,4 +1,4 @@
-/* !important 保卫注入控件的布局属性，防止被宿主页面样式（如 .pagination div）覆盖 */
+/* Protect the injected layout from broad host selectors such as .pagination div. */
 .ghpj-controls {
   display: inline-flex !important;
   flex: 0 0 auto !important;
@@ -17,14 +17,11 @@
 
 .ghpj-jumpbox {
   box-sizing: border-box;
+  display: inline-flex !important;
   height: 32px;
+  align-items: stretch;
   color: var(--fgColor-default, var(--color-fg-default, #1f2328));
   font: inherit;
-}
-
-.ghpj-jumpbox {
-  display: inline-flex !important;
-  align-items: stretch;
 }
 
 .ghpj-button {
@@ -66,7 +63,7 @@
   opacity: 0.65;
 }
 
-/* 旧版 .pagination（PR 列表等）场景：与原生按钮一致，hover 只显示描边、不做背景填充 */
+/* Legacy Rails pagination uses an outline hover instead of a filled background. */
 .ghpj-controls--outline .ghpj-button {
   border: 1px solid transparent;
 }
@@ -81,7 +78,7 @@
   background: transparent;
 }
 
-/* 弹窗“固定分页器”开启时：分页器整体固定在视口底部中央，成为悬浮控件 */
+/* Fixed mode moves the complete native paginator into a centered floating surface. */
 .ghpj-pagination--fixed {
   position: fixed !important;
   top: auto !important;
@@ -159,7 +156,7 @@
   outline-offset: 1px;
 }
 
-/* 与 GitHub 表单控件一致：仅输入框部分高亮，右侧按钮边框保持默认 */
+/* Match GitHub forms by focusing the input without changing the adjacent button. */
 .ghpj-input:focus {
   border-color: var(
     --focus-outlineColor,
@@ -208,6 +205,13 @@
 @media (max-width: 544px) {
   .ghpj-controls {
     gap: 2px;
+  }
+
+  /* Legacy markup lacks GitHub's responsive page-item attributes. */
+  .paginate-container
+    > .pagination
+    > :is(a, span, em):not(.previous_page):not(.next_page) {
+    display: none;
   }
 
   .ghpj-pagination--fixed {

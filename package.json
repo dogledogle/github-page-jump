@@ -5,7 +5,7 @@
   "description": "Chrome extension that adds direct page navigation to GitHub pagination.",
   "license": "MIT",
   "scripts": {
-    "test": "node --test tests/core.test.js"
+    "test": "node --test"
   },
   "engines": {
     "node": ">=18"

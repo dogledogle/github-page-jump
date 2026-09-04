@@ -1,4 +1,4 @@
-/* 扩展页面拿不到 GitHub 的 Primer 变量，这里用同色值的字面量并跟随系统深浅色 */
+/* Extension pages cannot inherit GitHub tokens, so these literals mirror Primer. */
 
 :root {
   color-scheme: light dark;

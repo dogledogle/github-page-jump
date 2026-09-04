@@ -18,14 +18,6 @@ test("reads page numbers from visible text and GitHub aria labels", () => {
   assert.equal(core.readPageNumber({ text: "", ariaLabel: "第 12 页" }), 12);
 });
 
-test("detects Chinese page language for locale selection", () => {
-  assert.equal(core.isChineseLanguage("zh-CN"), true);
-  assert.equal(core.isChineseLanguage("ZH-tw"), true);
-  assert.equal(core.isChineseLanguage("en"), false);
-  assert.equal(core.isChineseLanguage(""), false);
-  assert.equal(core.isChineseLanguage(null), false);
-});
-
 test("infers page parameter from native numeric links", () => {
   const links = [
     { page: 1, href: "/search?q=codex&p=1&type=repositories" },
@@ -33,6 +25,15 @@ test("infers page parameter from native numeric links", () => {
   ];
 
   assert.equal(core.inferPageParam(links, "https://github.com/search?q=codex"), "p");
+});
+
+test("ignores unrelated numeric query parameters when inferring the page parameter", () => {
+  const links = [
+    { page: 2, href: "/topics/javascript?sort=2" },
+    { page: 3, href: "/topics/javascript?sort=3" }
+  ];
+
+  assert.equal(core.inferPageParam(links, "https://github.com/topics/javascript"), "page");
 });
 
 test("builds a page URL while preserving the native query", () => {

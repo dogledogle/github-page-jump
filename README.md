@@ -1,5 +1,7 @@
 # ⏭️ GitHub Page Jump
 
+<img width="1245" height="401" alt="github-page-jump-demo-2" src="https://github.com/user-attachments/assets/e933d774-3016-4e2b-8bc4-3462ea13ffa7" />
+
 A zero-build Chrome Manifest V3 extension that adds to GitHub's numeric pagination:
 
 - ⏮️ Jump-to-first-page button
